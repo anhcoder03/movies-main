@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+@layer base {
+  html {
+    font-family: "Poppins", sans-serif;
+    background-color: #252229;
+    -webkit-tap-highlight-color: transparent;
+    @apply overflow-scroll no-scrollbar;
+  }
+}
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+@layer components {
+  //Navbar class
+  .navItem {
+    &::after {
+      content: "";
+      opacity: 0;
+      position: absolute;
+      width: 0;
+      height: 3px;
+      @apply bg-primary;
+      bottom: 0;
+      left: 50%;
+      transition: all 0.5s;
+    }
+
+    &:hover::after {
+      opacity: 1;
+      width: 100%;
+      left: 0;
+    }
+  }
+
+  //Banner overlay class
+  .BannerItem::before {
+    content: "";
+    position: absolute;
+    @apply rounded-[20px];
+    inset: 0;
+    background: linear-gradient(0deg, black, transparent);
+  }
+
+  //image details film overlay class
+  .coverImgFilmDetails::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    @apply bg-black bg-opacity-[60%];
+    z-index: 3;
+  }
+
+  //bg overlay class
+  .bg_overlay {
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      @apply bg-black bg-opacity-[80%];
+      z-index: 3;
+    }
+  }
+  //Custom Swiper class
+  @mixin slider-arrow-btn {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    bottom: -8px;
+    transform: translateY(-100%);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    font-size: 2.2rem;
+    background-color: #4b444c;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      @apply bg-gray-500;
+    }
+
+    &[disabled] {
+      cursor: auto;
+      opacity: 0.6;
+
+      &:hover {
+        background-color: #272727;
+      }
+    }
+
+    // @media screen and (max-width: $max-width-small) {
+    //   display: none;
+    // }
+  }
+
+  .slider-arrow-btn {
+    @media screen and (min-width: 1024px) {
+      &__next.banner {
+        @include slider-arrow-btn();
+        right: 25px;
+      }
+
+      &__prev.banner {
+        @include slider-arrow-btn();
+        right: 85px;
+      }
+    }
+  }
+
+  .slider-arrow-btn {
+    &__next.normalList {
+      @include slider-arrow-btn();
+      width: 25px;
+      height: 25px;
+      top: 27px;
+      right: 0;
+      @media screen and (min-width: 1024px) {
+        right: 25px;
+      }
+    }
+
+    &__prev.normalList {
+      @include slider-arrow-btn();
+      width: 25px;
+      height: 25px;
+      top: 27px;
+      right: 30px;
+      @media screen and (min-width: 1024px) {
+        right: 55px;
+      }
+    }
+  }
+
+  .slider-arrow-btn__icon {
+    &--next {
+      transform: translateX(2px);
+    }
+    &--prev {
+      transform: translateX(-2px);
+    }
+  }
+
+  .swiper-pagination {
+    @media screen and (min-width: 1024px) {
+      &-style.banner {
+        position: absolute;
+        text-align: center;
+        z-index: 1;
+      }
+
+      &-style.normalList {
+        position: relative;
+        text-align: center;
+        margin-top: 1rem;
+        z-index: 1;
+      }
+
+      &-style &-bullet {
+        display: inline-block;
+        background-color: #7c7c7c;
+        transition: all 0.2s ease;
+
+        &-active {
+          @apply bg-primary;
+          width: 15px;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}
